@@ -2,23 +2,16 @@ class Solution {
     public boolean halvesAreAlike(String s) {
         char[] vowels = {'a', 'e', 'i', 'o', 'u'};
         
-        String a = s.toLowerCase().substring(0,s.length()/2);
-        String b = s.toLowerCase().substring(s.length()/2);
+        HashSet<Character> vowelHs = new HashSet();
+        for(char vowel : vowels) vowelHs.add(vowel);
         
-        int aVowelCnt = 0;
-        int bVowelCnt = 0; 
-        for(char ch : a.toCharArray()){
-            if(Arrays.binarySearch(vowels, ch) > -1){
-                aVowelCnt++;
-            }
+        int cnt = 0;
+        String lowerS = s.toLowerCase();
+        for(int i=0; i<s.length()/2; i++){
+            if(vowelHs.contains(lowerS.charAt(i))) cnt++;
+            if(vowelHs.contains(lowerS.charAt(i+s.length()/2))) cnt--;
         }
         
-        for(char ch : b.toCharArray()){
-            if(Arrays.binarySearch(vowels, ch) > -1){
-                bVowelCnt++;
-            }
-        }
-        
-        return aVowelCnt == bVowelCnt;
+        return cnt == 0;
     }
 }
